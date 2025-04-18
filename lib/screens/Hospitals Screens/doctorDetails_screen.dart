@@ -516,31 +516,32 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
           const SizedBox(height: 20),
           
           // معلومات إضافية
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _buildInfoItem(
-                  Icons.work_outline,
-                  '${doctorDetails?['experienceYears'] ?? '؟'} سنة',
-                  'خبرة',
-                ),
-                _buildVerticalDivider(),
-                _buildInfoItem(
-                  Icons.phone_android,
-                  doctorDetails?['phoneNumber'] ?? '؟؟؟',
-                  'هاتف',
-                ),
-                _buildVerticalDivider(),
-                _buildInfoItem(
-                  Icons.star,
-                  '${doctorReviews?['averageRating']?.toStringAsFixed(1) ?? '0.0'}',
-                  'تقييم',
-                ),
-              ],
-            ),
-          ),
+         // في دالة _buildDoctorProfileHeader، قم بتعديل جزء معلومات إضافية كالتالي:
+Padding(
+  padding: const EdgeInsets.symmetric(horizontal: 25),
+  child: Row(
+    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    children: [
+      _buildInfoItem(
+        Icons.work_outline,
+        '${doctorDetails?['experienceYears'] ?? '؟'} سنة',
+        'خبرة',
+      ),
+      _buildVerticalDivider(),
+      _buildInfoItem(
+        Icons.medical_services,
+        doctorDetails?['specialty'] ?? '؟؟؟',
+        'تخصص',
+      ),
+      _buildVerticalDivider(),
+      _buildInfoItem(
+        Icons.star,
+        '${doctorReviews?['averageRating']?.toStringAsFixed(1) ?? '0.0'}',
+        'تقييم',
+      ),
+    ],
+  ),
+),
         ],
       ),
     );
@@ -676,93 +677,162 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
   }
 
   // جدول المواعيد
-  Widget _buildSchedulesList() {
-    if (doctorSchedules == null || doctorSchedules!.isEmpty) {
-      return _buildEmptyState('لا توجد أوقات دوام متاحة', Icons.calendar_today);
+Widget _buildSchedulesList() {
+  if (doctorSchedules == null || doctorSchedules!.isEmpty) {
+    return _buildEmptyState('لا توجد أوقات دوام متاحة', Icons.calendar_today);
+  }
+  
+  return Card(
+    elevation: 0,
+    color: Colors.white,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(15),
+      side: BorderSide(
+        color: Colors.grey[200]!,
+        width: 1,
+      ),
+    ),
+    child: Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        children: doctorSchedules!.map((schedule) {
+          // دالة لتنسيق التاريخ بدون أصفار
+String formatDate(String dateStr) {
+  try {
+    // معالجة التواريخ التي تحتوي على T و .000Z
+    if (dateStr.contains('T')) {
+      dateStr = dateStr.split('T')[0];
     }
     
-    return Card(
-      elevation: 0,
-      color: Colors.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15),
-        side: BorderSide(
-          color: Colors.grey[200]!,
-          width: 1,
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: doctorSchedules!.map((schedule) {
-            return Container(
-              margin: const EdgeInsets.only(bottom: 12),
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: secondaryColor.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                  color: secondaryColor.withOpacity(0.3),
-                  width: 1,
-                ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Icon(Icons.date_range, size: 18, color: primaryColor),
-                      const SizedBox(width: 8),
-                      Text(
-                        '${schedule['startDate']} - ${schedule['endDate']}',
-                        style: GoogleFonts.cairo(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: textColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Icon(Icons.access_time, size: 18, color: primaryColor),
-                          const SizedBox(width: 8),
-                          Text(
-                            '${schedule['startTime']} - ${schedule['endTime']}',
-                            style: GoogleFonts.cairo(
-                              fontSize: 14,
-                              color: textColor,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Icon(Icons.timer, size: 18, color: primaryColor),
-                          const SizedBox(width: 8),
-                          Text(
-                            '${schedule['slotDuration']} دقيقة',
-                            style: GoogleFonts.cairo(
-                              fontSize: 14,
-                              color: textColor,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            );
-          }).toList(),
-        ),
-      ),
-    );
+    // إزالة الأجزاء الزمنية إذا وجدت
+    dateStr = dateStr.split(' ')[0];
+    
+    // إزالة الأصفار الزائدة من أجزاء التاريخ
+    final parts = dateStr.split('-');
+    final year = parts[0];
+    final month = parts[1].startsWith('0') ? parts[1].substring(1) : parts[1];
+    final day = parts[2].startsWith('0') ? parts[2].substring(1) : parts[2];
+    
+    // إنشاء تاريخ جديد بدون أصفار زائدة
+    final cleanedDate = '$year-$month-$day';
+    DateTime date = DateTime.parse(cleanedDate);
+    
+    // تنسيق التاريخ بالشكل المطلوب (بدون أصفار)
+    return DateFormat('yyyy/M/d', 'ar').format(date);
+  } catch (e) {
+    print('Error formatting date: $e');
+    return dateStr; // في حالة الخطأ، إرجاع التاريخ كما هو
   }
+}
+
+          // دالة لتنسيق الوقت
+          String formatTime(String timeStr) {
+            try {
+              final parts = timeStr.split(':');
+              final hour = parts[0].startsWith('0') ? parts[0].substring(1) : parts[0];
+              final minute = parts[1];
+              
+              TimeOfDay time = TimeOfDay(
+                hour: int.parse(hour),
+                minute: int.parse(minute),
+              );
+              return time.format(context);
+            } catch (e) {
+              return timeStr;
+            }
+          }
+
+          return Container(
+            margin: const EdgeInsets.only(bottom: 12),
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: secondaryColor.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: secondaryColor.withOpacity(0.3),
+                width: 1,
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+               Row(
+  children: [
+    Icon(Icons.date_range, size: 18, color: primaryColor),
+    const SizedBox(width: 8),
+    Flexible(
+      child: Text(
+        'من ${formatDate(schedule['startDate'])} إلى ${formatDate(schedule['endDate'])}',
+        style: GoogleFonts.cairo(
+          fontSize: 14,
+          fontWeight: FontWeight.w600,
+          color: textColor,
+        ),
+      ),
+    ),
+  ],
+),
+                const SizedBox(height: 8),
+                
+                // عرض أوقات الدوام اليومية
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(Icons.access_time, size: 18, color: primaryColor),
+                        const SizedBox(width: 8),
+                        Text(
+                          '${formatTime(schedule['startTime'])} - ${formatTime(schedule['endTime'])}',
+                          style: GoogleFonts.cairo(
+                            fontSize: 14,
+                            color: textColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Icon(Icons.timer, size: 18, color: primaryColor),
+                        const SizedBox(width: 8),
+                        Text(
+                          '${schedule['slotDuration']} دقيقة',
+                          style: GoogleFonts.cairo(
+                            fontSize: 14,
+                            color: textColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                
+                // عرض أيام الدوام (إذا كانت متوفرة)
+                if (schedule['days'] != null && schedule['days'].isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: Row(
+                      children: [
+                        Icon(Icons.calendar_view_week, size: 18, color: primaryColor),
+                        const SizedBox(width: 8),
+                        Text(
+                          'أيام الدوام: ${schedule['days'].join('، ')}',
+                          style: GoogleFonts.cairo(
+                            fontSize: 14,
+                            color: textColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+              ],
+            ),
+          );
+        }).toList(),
+      ),
+    ),
+  );
+}
 
   // بطاقة حجز موعد
   Widget _buildAppointmentBookingCard() {

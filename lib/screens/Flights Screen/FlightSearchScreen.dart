@@ -17,24 +17,14 @@ class FlightSearchScreen extends StatefulWidget {
   _FlightSearchScreenState createState() => _FlightSearchScreenState();
 }
 
-class _FlightSearchScreenState extends State<FlightSearchScreen> with SingleTickerProviderStateMixin {
+class _FlightSearchScreenState extends State<FlightSearchScreen>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _fadeAnimation;
 
-  final List<String> yemenCities = [
-    "صنعاء", "عدن", "سيئون", "الحديدة", "القاهرة", "برج العرب",
-    "شرم الشيخ", "الغردقة", "الأقصر", "أسوان", "مرسى علم",
-    "طابا", "سوهاج", "أسيوط", "مطروح", "العريش", "أبو سمبل"
-  ];
+  final TextEditingController _fromController = TextEditingController();
+  final TextEditingController _toController = TextEditingController();
 
-  final List<String> egyptCities = [
-    "صنعاء", "عدن", "سيئون", "الحديدة", "القاهرة", "برج العرب",
-    "شرم الشيخ", "الغردقة", "الأقصر", "أسوان", "مرسى علم",
-    "طابا", "سوهاج", "أسيوط", "مطروح", "العريش", "أبو سمبل"
-  ];
-
-  String? fromCity;
-  String? toCity;
   DateTime? departureDate;
   List<dynamic> flights = [];
   bool isLoading = false;
@@ -53,6 +43,8 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> with SingleTick
   @override
   void dispose() {
     _controller.dispose();
+    _fromController.dispose();
+    _toController.dispose();
     super.dispose();
   }
 
@@ -81,45 +73,45 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> with SingleTick
         iconTheme: const IconThemeData(color: Colors.black87),
       ),
       body: FadeTransition(
-          opacity: _fadeAnimation,
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              children: [
-                _buildSearchSection(context),
-                const SizedBox(height: 20),
-                if (isLoading)
-                  const LinearProgressIndicator(
-                    backgroundColor: Colors.grey,
-                    valueColor: AlwaysStoppedAnimation<Color>(mainColor),
-                  )
-                else if (flights.isNotEmpty)
-                  _buildFlightsList()
-                else if (!isLoading && flights.isEmpty)
-                  Center(
-                    child: Column(
-                      children: [
-                        Icon(
-                          Icons.flight_takeoff,
-                          size: 60,
-                          color: mainColor.withOpacity(0.5),
+        opacity: _fadeAnimation,
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            children: [
+              _buildSearchSection(context),
+              const SizedBox(height: 20),
+              if (isLoading)
+                const LinearProgressIndicator(
+                  backgroundColor: Colors.grey,
+                  valueColor: AlwaysStoppedAnimation<Color>(mainColor),
+                )
+              else if (flights.isNotEmpty)
+                _buildFlightsList()
+              else if (!isLoading && flights.isEmpty)
+                Center(
+                  child: Column(
+                    children: [
+                      Icon(
+                        Icons.flight_takeoff,
+                        size: 60,
+                        color: mainColor.withOpacity(0.5),
+                      ),
+                      const SizedBox(height: 10),
+                      const Text(
+                        'ابدأ البحث عن رحلتك',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.grey,
+                          fontWeight: FontWeight.w500,
                         ),
-                        const SizedBox(height: 10),
-                        const Text(
-                          'ابدأ البحث عن رحلتك',
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.grey,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-              ],
-            ),
+                ),
+            ],
           ),
         ),
+      ),
     );
   }
 
@@ -140,30 +132,18 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> with SingleTick
       ),
       child: Column(
         children: [
-          _buildDropdownField(
+          _buildTextInputField(
             label: 'من',
             icon: Icons.flight_takeoff,
-            items: yemenCities,
-            value: fromCity,
-            onChanged: (value) {
-              setState(() {
-                fromCity = value;
-              });
-            },
-            hint: 'اختر مدينة المغادرة',
+            controller: _fromController,
+            hint: 'أدخل مدينة المغادرة',
           ),
           const SizedBox(height: 15),
-          _buildDropdownField(
+          _buildTextInputField(
             label: 'إلى',
             icon: Icons.flight_land,
-            items: egyptCities,
-            value: toCity,
-            onChanged: (value) {
-              setState(() {
-                toCity = value;
-              });
-            },
-            hint: 'اختر مدينة الوصول',
+            controller: _toController,
+            hint: 'أدخل مدينة الوصول',
           ),
           const SizedBox(height: 15),
           _buildDatePicker(context),
@@ -174,15 +154,14 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> with SingleTick
     );
   }
 
-  Widget _buildDropdownField({
+  Widget _buildTextInputField({
     required String label,
     required IconData icon,
-    required List<String> items,
-    required String? value,
-    required Function(String?) onChanged,
+    required TextEditingController controller,
     required String hint,
   }) {
-    return DropdownButtonFormField<String>(
+    return TextFormField(
+      controller: controller,
       decoration: InputDecoration(
         labelText: label,
         labelStyle: const TextStyle(
@@ -204,20 +183,10 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> with SingleTick
           borderRadius: BorderRadius.circular(15),
           borderSide: const BorderSide(color: mainColor, width: 2),
         ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+        hintText: hint,
       ),
-      items: items.map((city) {
-        return DropdownMenuItem(
-          value: city,
-          child: Text(city),
-        );
-      }).toList(),
-      value: value,
-      onChanged: onChanged,
-      hint: Text(hint),
-      icon: const Icon(Icons.arrow_drop_down, color: mainColor),
-      isExpanded: true,
-      dropdownColor: Colors.white,
     );
   }
 
@@ -280,7 +249,8 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> with SingleTick
               borderRadius: BorderRadius.circular(15),
               borderSide: const BorderSide(color: mainColor, width: 2),
             ),
-            contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
           ),
           enabled: false,
         ),
@@ -294,10 +264,10 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> with SingleTick
       height: 55,
       child: ElevatedButton(
         onPressed: () async {
-          if (fromCity == null && toCity == null) {
+          if (_fromController.text.isEmpty || _toController.text.isEmpty) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: const Text('الرجاء اختيار مدينة المغادرة أو الوصول'),
+                content: const Text('الرجاء إدخال مدينتي المغادرة والوصول'),
                 backgroundColor: Colors.red[400],
                 behavior: SnackBarBehavior.floating,
                 shape: RoundedRectangleBorder(
@@ -313,7 +283,7 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> with SingleTick
           backgroundColor: mainColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
-            side: BorderSide(color: mainColor), // حواف خضراء
+            side: BorderSide(color: mainColor),
           ),
           elevation: 2,
         ),
@@ -339,7 +309,7 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> with SingleTick
           ? DateFormat('yyyy-MM-dd').format(departureDate!)
           : null;
       final url = Uri.parse(
-        'https://backend-fpnx.onrender.com/flights/flights?departureAirport=$fromCity&arrivalAirport=$toCity&departureDate=$formattedDate',
+        'https://backend-fpnx.onrender.com/flights/flights?departureAirport=${_fromController.text}&arrivalAirport=${_toController.text}&departureDate=$formattedDate',
       );
 
       final response = await http.get(url);
@@ -418,7 +388,8 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> with SingleTick
                         ],
                       ),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 6),
                         decoration: BoxDecoration(
                           color: mainColor.withOpacity(0.1),
                           borderRadius: BorderRadius.circular(20),
@@ -461,7 +432,8 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> with SingleTick
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: const Icon(Icons.arrow_forward, color: mainColor),
+                        child:
+                            const Icon(Icons.arrow_forward, color: mainColor),
                       ),
                       Expanded(
                         child: Column(
@@ -504,7 +476,8 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> with SingleTick
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => FlightDetailScreen(flightId: flight["_id"]),
+                              builder: (context) =>
+                                  FlightDetailScreen(flightId: flight["_id"]),
                             ),
                           );
                         },
@@ -513,7 +486,8 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> with SingleTick
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
                         ),
                         child: const Text(
                           'التفاصيل',
