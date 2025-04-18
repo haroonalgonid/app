@@ -1,0 +1,12 @@
+flutter_native_splash:
+  color: "#FFFFFF" # لون خلفية الشاشة
+  image: assets/logos/logo1.png # المسار إلى الصورة
+  android_12:
+    color: "#FFFFFF"
+    image: assets/logos/logo3.png
+  web: false
+  android: true
+  ios: true
+  fullscreen: true # لجعل شاشة البداية تغطي الشاشة بالكامل
+  android_gravity: center # تمركز الصورة على أندرويد
+  ios_content_mode: scaleAspectFit # عرض الصورة على iOS بشكل متناسب
