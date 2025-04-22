@@ -170,7 +170,7 @@ class _HospitalsScreenState extends State<HospitalsScreen> {
               color: AppColors.red.withOpacity(0.1),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Icon(
+            child: const Icon(
               Icons.tune,
               color: AppColors.red,
               size: 20,
@@ -482,7 +482,7 @@ class _HospitalsScreenState extends State<HospitalsScreen> {
                             backgroundColor: AppColors.red.withOpacity(0.1),
                             child: Text(
                               '+${hospital["facilities"].length - 3}',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 10,
                                 color: AppColors.red,
                                 fontWeight: FontWeight.bold,

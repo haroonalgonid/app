@@ -98,10 +98,10 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen>
         Get.snackbar(
           'خطأ في الاتصال',
           'لا يوجد اتصال بالإنترنت',
-          icon: Icon(Icons.wifi_off, color: Colors.red),
+          icon: const Icon(Icons.wifi_off, color: Colors.red),
           snackPosition: SnackPosition.TOP,
           colorText: Colors.black,
-          duration: Duration(seconds: 3),
+          duration: const Duration(seconds: 3),
         );
       }
       return;
@@ -126,10 +126,10 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen>
         Get.snackbar(
           'لا توجد بيانات',
           'لا توجد بيانات للأطباء',
-          icon: Icon(Icons.info_outline, color: Colors.blue),
+          icon: const Icon(Icons.info_outline, color: Colors.blue),
           snackPosition: SnackPosition.TOP,
           colorText: Colors.black,
-          duration: Duration(seconds: 3),
+          duration: const Duration(seconds: 3),
         );
       }
     } catch (e) {
@@ -142,7 +142,7 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen>
           'فشل في تحميل بيانات الأطباء: ${e.toString()}',
           snackPosition: SnackPosition.TOP,
           colorText: Colors.black,
-          duration: Duration(seconds: 3),
+          duration: const Duration(seconds: 3),
         );
       }
     }
@@ -782,9 +782,9 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen>
   }
 
   void _showAddReviewDialog(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
-    double _rating = 0;
-    String _comment = '';
+    final formKey = GlobalKey<FormState>();
+    double rating = 0;
+    String comment = '';
 
     showDialog(
       context: context,
@@ -828,7 +828,7 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen>
                       color: Colors.amber,
                     ),
                     onRatingUpdate: (rating) {
-                      _rating = rating;
+                      rating = rating;
                     },
                   ),
                 ),
@@ -842,7 +842,7 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen>
                 ),
                 const SizedBox(height: 8),
                 Form(
-                  key: _formKey,
+                  key: formKey,
                   child: TextFormField(
                     decoration: InputDecoration(
                       hintText: 'اكتب تعليقك هنا...',
@@ -869,7 +869,7 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen>
                       return null;
                     },
                     onSaved: (value) {
-                      _comment = value!;
+                      comment = value!;
                     },
                   ),
                 ),
@@ -904,45 +904,45 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen>
                             Get.snackbar(
                               'خطأ في الاتصال',
                               'لا يوجد اتصال بالإنترنت',
-                              icon: Icon(Icons.wifi_off, color: Colors.red),
+                              icon: const Icon(Icons.wifi_off, color: Colors.red),
                               snackPosition: SnackPosition.TOP,
                               colorText: Colors.black,
-                              duration: Duration(seconds: 3),
+                              duration: const Duration(seconds: 3),
                             );
                             return;
                           }
 
-                          if (_rating == 0) {
+                          if (rating == 0) {
                             Get.snackbar(
                               'نقص في البيانات',
                               'الرجاء تحديد تقييم',
                               icon:
-                                  Icon(Icons.star_border, color: Colors.amber),
+                                  const Icon(Icons.star_border, color: Colors.amber),
                               snackPosition: SnackPosition.TOP,
                               colorText: Colors.black,
-                              duration: Duration(seconds: 3),
+                              duration: const Duration(seconds: 3),
                             );
                             return;
                           }
 
-                          if (_formKey.currentState!.validate()) {
-                            _formKey.currentState!.save();
+                          if (formKey.currentState!.validate()) {
+                            formKey.currentState!.save();
                             bool success =
                                 await HospitalService.addHospitalReview(
                               hospitalId: widget.hospitalId,
-                              rating: _rating.toInt(),
-                              comment: _comment,
+                              rating: rating.toInt(),
+                              comment: comment,
                             );
 
                             if (success) {
                               Get.snackbar(
                                 'نجاح',
                                 'تم إضافة التقييم بنجاح!',
-                                icon: Icon(Icons.check_circle,
+                                icon: const Icon(Icons.check_circle,
                                     color: Colors.green),
                                 snackPosition: SnackPosition.TOP,
                                 colorText: Colors.black,
-                                duration: Duration(seconds: 3),
+                                duration: const Duration(seconds: 3),
                               );
                               Navigator.of(context).pop();
                               await _fetchReviews();
@@ -950,10 +950,10 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen>
                               Get.snackbar(
                                 'خطأ',
                                 'يرجى تسجيل الدخول أولاً',
-                                icon: Icon(Icons.error, color: Colors.red),
+                                icon: const Icon(Icons.error, color: Colors.red),
                                 snackPosition: SnackPosition.TOP,
                                 colorText: Colors.black,
-                                duration: Duration(seconds: 3),
+                                duration: const Duration(seconds: 3),
                               );
                             }
                           }

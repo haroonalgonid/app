@@ -41,7 +41,7 @@ class Restaurant {
       if (!logo.startsWith('http')) {
         // إزالة أي شرطة مائلة زائدة
         logo = logo.startsWith('/') ? logo.substring(1) : logo;
-        logo = '$logo';
+        logo = logo;
       }
       // استبدال المسارات غير الصحيحة إذا لزم الأمر
       logo = logo.replaceAll('//', '/').replaceAll(':/', '://');
@@ -221,7 +221,7 @@ class _RestaurantsScreenState extends State<RestaurantsScreen> {
               color: AppColors.red.withOpacity(0.1),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Icon(
+            child: const Icon(
               Icons.tune,
               color: AppColors.red,
               size: 20,

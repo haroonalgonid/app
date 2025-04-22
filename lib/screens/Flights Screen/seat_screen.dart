@@ -32,7 +32,7 @@ class _SeatMapScreenState extends State<SeatMapScreen> {
         isLoading = false;
       });
     } catch (e) {
-      print('API Error: $e'); // طباعة الخطأ في الترمينال
+      print('API Error: $e');
       setState(() {
         errorMessage = e.toString();
         isLoading = false;
@@ -44,43 +44,41 @@ class _SeatMapScreenState extends State<SeatMapScreen> {
     setState(() {
       selectedSeat = seatNumber;
     });
-    // إظهار نافذة تأكيد اختيار المقعد
     _showSeatConfirmationDialog(seatNumber);
   }
 
- void _showSeatConfirmationDialog(String seatNumber) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return Directionality(
-        textDirection: TextDirection.rtl,
-        child: AlertDialog(
-          title: Text('تأكيد اختيار المقعد'),
-          content: Text('هل تريد اختيار المقعد رقم $seatNumber؟'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context); // إغلاق الحوار
-              },
-              child: Text('إلغاء'),
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppTheme.mainGreen,
+  void _showSeatConfirmationDialog(String seatNumber) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Directionality(
+          textDirection: TextDirection.rtl,
+          child: AlertDialog(
+            title: const Text('تأكيد اختيار المقعد'),
+            content: Text('هل تريد اختيار المقعد رقم $seatNumber؟'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('إلغاء'),
               ),
-              onPressed: () {
-                Navigator.pop(context); // إغلاق الحوار
-                Navigator.pop(context, seatNumber); // العودة إلى الشاشة السابقة مع إرسال رقم المقعد
-              },
-              child: Text('تأكيد', style: TextStyle(color: Colors.white)),
-            ),
-          ],
-        ),
-      );
-    },
-  );
-}
-
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppTheme.mainGreen,
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.pop(context, seatNumber);
+                },
+                child: const Text('تأكيد', style: TextStyle(color: Colors.white)),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +98,7 @@ class _SeatMapScreenState extends State<SeatMapScreen> {
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
               bottom: Radius.circular(20),
-            ),
+          ),
           ),
           iconTheme: const IconThemeData(color: Colors.white),
         ),
@@ -117,8 +115,8 @@ class _SeatMapScreenState extends State<SeatMapScreen> {
                       )
                     : Column(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.all(16.0),
+                          const Padding(
+                            padding: EdgeInsets.all(16.0),
                             child: Text(
                               'اختر مقعدك',
                               style: TextStyle(
@@ -128,23 +126,21 @@ class _SeatMapScreenState extends State<SeatMapScreen> {
                               ),
                             ),
                           ),
-                          // قسم للإشارة إلى الأمام
                           Container(
                             width: double.infinity,
-                            padding: EdgeInsets.all(8),
-                            margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                            padding: const EdgeInsets.all(8),
+                            margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                             decoration: BoxDecoration(
                               color: Colors.grey.shade300,
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child: Center(
+                            child: const Center(
                               child: Text(
                                 '⬅️ مقدمة الطائرة',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                             ),
                           ),
-                          // خريطة المقاعد
                           Expanded(
                             child: Padding(
                               padding: const EdgeInsets.all(16.0),
@@ -161,20 +157,19 @@ class _SeatMapScreenState extends State<SeatMapScreen> {
                                   final seatNumber = seat['seatNumber'].toString();
                                   final seatClass = seat['class'] ?? 'Economy';
                                   
-                                  // تحديد لون المقعد بناءً على الفئة
+                                  // تحديد لون المقعد بناءً على الفئة (حسب القيم الجديدة)
                                   Color seatColor;
                                   switch (seatClass) {
                                     case 'Business':
                                       seatColor = Colors.blue;
                                       break;
-                                    case 'FirstClass':
-                                      seatColor = Colors.purple;
+                                    case 'First':
+                                      seatColor = Colors.deepPurple; // لون مميز للدرجة الأولى
                                       break;
-                                    default:
+                                    default: // Economy
                                       seatColor = AppTheme.mainGreen;
                                   }
                                   
-                                  // التحقق مما إذا كان هذا المقعد محددًا
                                   final isSelected = selectedSeat == seatNumber;
                                   
                                   return GestureDetector(
@@ -190,14 +185,13 @@ class _SeatMapScreenState extends State<SeatMapScreen> {
                                                 BoxShadow(
                                                   color: Colors.black.withOpacity(0.3),
                                                   blurRadius: 5,
-                                                  offset: Offset(0, 3),
+                                                  offset: const Offset(0, 3),
                                                 )
                                               ]
                                             : null,
                                       ),
                                       child: Stack(
                                         children: [
-                                          // أيقونة المقعد
                                           Center(
                                             child: Icon(
                                               Icons.event_seat,
@@ -205,11 +199,10 @@ class _SeatMapScreenState extends State<SeatMapScreen> {
                                               size: 28,
                                             ),
                                           ),
-                                          // رقم المقعد
                                           Center(
                                             child: Text(
                                               seatNumber,
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 14,
@@ -224,7 +217,7 @@ class _SeatMapScreenState extends State<SeatMapScreen> {
                               ),
                             ),
                           ),
-                          // مفتاح تفسيري للألوان
+                          // مفتاح تفسيري للألوان (معدّل حسب القيم الجديدة)
                           Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: Row(
@@ -232,7 +225,7 @@ class _SeatMapScreenState extends State<SeatMapScreen> {
                               children: [
                                 _buildLegendItem(AppTheme.mainGreen, 'اقتصادية'),
                                 _buildLegendItem(Colors.blue, 'رجال أعمال'),
-                                _buildLegendItem(Colors.purple, 'درجة أولى'),
+                                _buildLegendItem(Colors.deepPurple, 'درجة أولى'),
                                 _buildLegendItem(Colors.amber, 'محدد'),
                               ],
                             ),
@@ -254,8 +247,8 @@ class _SeatMapScreenState extends State<SeatMapScreen> {
             borderRadius: BorderRadius.circular(4),
           ),
         ),
-        SizedBox(width: 4),
-        Text(label, style: TextStyle(fontSize: 12)),
+        const SizedBox(width: 4),
+        Text(label, style: const TextStyle(fontSize: 12)),
       ],
     );
   }

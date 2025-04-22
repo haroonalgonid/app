@@ -55,7 +55,7 @@ class _FlightDetailScreenState extends State<FlightDetailScreen> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        backgroundColor: Color(0xFFF5F6FA),
+        backgroundColor: const Color(0xFFF5F6FA),
         appBar: AppBar(
           title: const Text(
             'تفاصيل الرحلة',

@@ -17,14 +17,14 @@ class FlightBookingScreen extends StatelessWidget {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        backgroundColor: Color(0xFFF5F6FA),
+        backgroundColor: const Color(0xFFF5F6FA),
         body: CustomScrollView(
           slivers: [
             SliverAppBar(
               expandedHeight: 250.0,
               floating: false,
               pinned: true,
-              backgroundColor: Color(0xFFF5F6FA),
+              backgroundColor: const Color(0xFFF5F6FA),
               automaticallyImplyLeading: true,
               flexibleSpace: FlexibleSpaceBar(
                 // title: const Text(
@@ -123,7 +123,7 @@ Widget _buildSearchBox(BuildContext context) {
     onTap: () {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => FlightSearchScreen()),
+        MaterialPageRoute(builder: (context) => const FlightSearchScreen()),
       );
     },
     child: Container(
@@ -278,10 +278,10 @@ Widget _buildPopularFlights(BuildContext context) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
                 'الرحلات المتوفرة',
                 style: TextStyle(
                   fontSize: 22,
@@ -349,7 +349,7 @@ Widget _buildPopularFlights(BuildContext context) {
                               topRight: Radius.circular(25),
                             ),
                           ),
-                          child: Center(
+                          child: const Center(
                             child: Icon(
                               Icons.flight,
                               color: mainGreen,
@@ -507,7 +507,7 @@ Widget _buildPopularFlights(BuildContext context) {
                               color: mainGreen.withOpacity(0.1),
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            child: Icon(
+                            child: const Icon(
                               Icons.flight,
                               color: mainGreen,
                               size: 40,
@@ -529,7 +529,7 @@ Widget _buildPopularFlights(BuildContext context) {
                                   ),
                                   child: Text(
                                     'خصم ${flight["discount"]}%',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
                                       color: mainGreen,

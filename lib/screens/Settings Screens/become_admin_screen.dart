@@ -35,7 +35,7 @@ class BecomeAdminScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(
+              const Center(
                 child: Icon(
                   Icons.admin_panel_settings,
                   size: 100,
@@ -145,7 +145,7 @@ class BecomeAdminScreen extends StatelessWidget {
           Container(
             width: 30,
             height: 30,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.green, // تغيير لون الدائرة إلى الأخضر
               shape: BoxShape.circle,
             ),
@@ -194,7 +194,7 @@ class BecomeAdminScreen extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(Icons.check_circle,
+          const Icon(Icons.check_circle,
               color: Colors.green, size: 20), // تغيير لون الأيقونة إلى الأخضر
           const SizedBox(width: 8),
           Expanded(

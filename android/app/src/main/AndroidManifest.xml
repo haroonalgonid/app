@@ -11,7 +11,7 @@
 
     <application
         android:name="${applicationName}"
-        android:label="ST"
+        android:label="Sick Traveler"
         android:icon="@mipmap/ic_launcher"
         android:allowBackup="true"
         android:theme="@style/LaunchTheme">

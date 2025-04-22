@@ -168,9 +168,9 @@ class _FlightBookingScreenState extends State<FlightBookingScreen> {
                                   ),
                                   elevation: 5,
                                 ),
-                                child: Row(
+                                child: const Row(
                                   mainAxisSize: MainAxisSize.min,
-                                  children: const [
+                                  children: [
                                     Icon(
                                         Icons
                                             .airline_seat_recline_normal_outlined,
@@ -200,9 +200,9 @@ class _FlightBookingScreenState extends State<FlightBookingScreen> {
                                   ),
                                   elevation: 5,
                                 ),
-                                child: Row(
+                                child: const Row(
                                   mainAxisSize: MainAxisSize.min,
-                                  children: const [
+                                  children: [
                                     Icon(Icons.check_circle_outline,
                                         color: Colors.white),
                                     SizedBox(width: 10),

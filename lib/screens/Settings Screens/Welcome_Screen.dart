@@ -3,6 +3,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/services.dart';
 
 class WelcomeScreen extends StatelessWidget {
+  const WelcomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -24,15 +26,15 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 12), // تقليل المسافة الفارغة
+                const SizedBox(height: 12), // تقليل المسافة الفارغة
                 Expanded(
                   child: SingleChildScrollView(
-                    physics: NeverScrollableScrollPhysics(), // تعطيل التمرير
+                    physics: const NeverScrollableScrollPhysics(), // تعطيل التمرير
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Container(
-                          padding: EdgeInsets.all(16), // تقليل الحشو
+                          padding: const EdgeInsets.all(16), // تقليل الحشو
                           decoration: BoxDecoration(
                             color: Colors.grey[50],
                             borderRadius: BorderRadius.circular(12),
@@ -40,7 +42,7 @@ class WelcomeScreen extends StatelessWidget {
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Text(
+                              const Text(
                                 'نحن سعداء باستقبالك في تطبيقنا الذي صمم خصيصًا لتسهيل رحلتك وضمان راحتك وسلامتك أينما كنت. مع دليل المسافر المريض، يمكنك:',
                                 style: TextStyle(
                                   fontSize: 14, // تصغير حجم الخط
@@ -49,7 +51,7 @@ class WelcomeScreen extends StatelessWidget {
                                 ),
                                 textAlign: TextAlign.right,
                               ),
-                              SizedBox(height: 12),
+                              const SizedBox(height: 12),
                               _buildFeatureItem(
                                 icon: Icons.airplane_ticket,
                                 text: 'حجز تذاكر الطيران بسهولة وسرعة.',
@@ -70,9 +72,9 @@ class WelcomeScreen extends StatelessWidget {
                                 icon: Icons.hotel,
                                 text: 'استعراض الفنادق واختيار الأفضل لإقامتك.',
                               ),
-                              SizedBox(height: 12),
+                              const SizedBox(height: 12),
                               Container(
-                                padding: EdgeInsets.all(10),
+                                padding: const EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                   color: Colors.blue.withOpacity(0.1),
                                   borderRadius: BorderRadius.circular(10),
@@ -94,7 +96,7 @@ class WelcomeScreen extends StatelessWidget {
                             ],
                           ),
                         ),
-                        SizedBox(height: 16),
+                        const SizedBox(height: 16),
                         Image.asset(
                           'assets/images/welcomeimage.png',
                           height: 400, // تصغير حجم الصورة
@@ -104,7 +106,7 @@ class WelcomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 ElevatedButton(
                   onPressed: () async {
                     HapticFeedback.mediumImpact();
@@ -115,15 +117,15 @@ class WelcomeScreen extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue[800],
                     foregroundColor: Colors.white,
-                    padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-                    textStyle: TextStyle(
+                    padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                    textStyle: const TextStyle(
                       fontSize: 16, // تصغير حجم خط الزر
                     ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(24),
                     ),
                   ),
-                  child: Row(
+                  child: const Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text('لنبدأ الآن'),
@@ -132,7 +134,7 @@ class WelcomeScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
               ],
             ),
           ),
@@ -148,7 +150,7 @@ class WelcomeScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: EdgeInsets.all(6),
+            padding: const EdgeInsets.all(6),
             decoration: BoxDecoration(
               color: Colors.blue.withOpacity(0.1),
               borderRadius: BorderRadius.circular(8),
@@ -159,11 +161,11 @@ class WelcomeScreen extends StatelessWidget {
               size: 18, // تصغير حجم الأيقونات
             ),
           ),
-          SizedBox(width: 8),
+          const SizedBox(width: 8),
           Expanded(
             child: Text(
               text,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 14, // تصغير حجم الخط
                 height: 1.3,
                 color: Colors.black87,

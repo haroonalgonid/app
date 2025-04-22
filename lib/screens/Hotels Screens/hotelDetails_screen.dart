@@ -145,7 +145,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen>
             decoration: InputDecoration(
               labelText: 'تعليقك',
               labelStyle: GoogleFonts.cairo(),
-              border: OutlineInputBorder(),
+              border: const OutlineInputBorder(),
             ),
             maxLines: 3,
             onChanged: (value) {
@@ -168,10 +168,10 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen>
               Get.snackbar(
                 'خطأ',
                 'يرجى إدخال التقييم والتعليق',
-                icon: Icon(Icons.error, color: Colors.red),
+                icon: const Icon(Icons.error, color: Colors.red),
                 snackPosition: SnackPosition.TOP,
                 colorText: Colors.black,
-                duration: Duration(seconds: 3),
+                duration: const Duration(seconds: 3),
               );
               return;
             }
@@ -188,19 +188,19 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen>
               Get.snackbar(
                 'تم إضافة التقييم بنجاح',
                 'تم إضافة تقييمك للفندق بنجاح.',
-                icon: Icon(Icons.check_circle, color: Colors.green),
+                icon: const Icon(Icons.check_circle, color: Colors.green),
                 snackPosition: SnackPosition.TOP,
                 colorText: Colors.black,
-                duration: Duration(seconds: 3),
+                duration: const Duration(seconds: 3),
               );
             } else {
               Get.snackbar(
                 'خطأ',
                 'يرجى تسجيل الدخول أولاً',
-                icon: Icon(Icons.warning, color: Colors.blue),
+                icon: const Icon(Icons.warning, color: Colors.blue),
                 snackPosition: SnackPosition.TOP,
                 colorText: Colors.black,
-                duration: Duration(seconds: 3),
+                duration: const Duration(seconds: 3),
               );
             }
           },
@@ -400,7 +400,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen>
                           _buildOverviewTab(widget.hotel),
                           // الغرف
                           rooms == null
-                              ? Center(child: CircularProgressIndicator())
+                              ? const Center(child: CircularProgressIndicator())
                               : rooms!.isEmpty
                                   ? Center(
                                       child: Text(
@@ -595,14 +595,14 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen>
           padding: const EdgeInsets.all(16),
           child: ElevatedButton.icon(
             onPressed: () => _showAddReviewDialog(),
-            icon: Icon(Icons.add, color: Colors.white),
+            icon: const Icon(Icons.add, color: Colors.white),
             label: Text(
               'إضافة تقييم',
               style: GoogleFonts.cairo(color: Colors.white),
             ),
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.orange,
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
             ),
           ),
         ),
@@ -610,7 +610,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen>
         // قائمة المراجعات
         if (reviews.isEmpty)
           Padding(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: Text(
               'لا توجد مراجعات بعد. كن أول من يقيم هذا الفندق!',
               style: GoogleFonts.cairo(
@@ -627,10 +627,10 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen>
               itemBuilder: (context, index) {
                 final review = reviews[index];
                 return Card(
-                  margin: EdgeInsets.only(bottom: 15, left: 16, right: 16),
+                  margin: const EdgeInsets.only(bottom: 15, left: 16, right: 16),
                   elevation: 2,
                   child: Padding(
-                    padding: EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(16),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -640,9 +640,9 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen>
                               backgroundColor:
                                   AppColors.orange.withOpacity(0.2),
                               child:
-                                  Icon(Icons.person, color: AppColors.orange),
+                                  const Icon(Icons.person, color: AppColors.orange),
                             ),
-                            SizedBox(width: 15),
+                            const SizedBox(width: 15),
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -666,7 +666,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen>
                             ),
                             RatingBarIndicator(
                               rating: review.rating,
-                              itemBuilder: (context, index) => Icon(
+                              itemBuilder: (context, index) => const Icon(
                                 Icons.star,
                                 color: Colors.amber,
                               ),
@@ -676,7 +676,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen>
                             ),
                           ],
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Text(
                           review.comment,
                           style: GoogleFonts.cairo(

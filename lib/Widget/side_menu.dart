@@ -75,7 +75,7 @@ class SideMenu extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      ChangePasswordScreen(), // الانتقال إلى شاشة PatientSignUpScreen
+                      const ChangePasswordScreen(), // الانتقال إلى شاشة PatientSignUpScreen
                 ),
               );
             },
@@ -111,7 +111,7 @@ ListTile(
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) =>  WelcomeScreen(),
+        builder: (context) =>  const PrivacyPolicyScreen(),
       ),
     );
   },

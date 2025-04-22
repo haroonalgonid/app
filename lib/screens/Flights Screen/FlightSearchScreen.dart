@@ -283,7 +283,7 @@ class _FlightSearchScreenState extends State<FlightSearchScreen>
           backgroundColor: mainColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
-            side: BorderSide(color: mainColor),
+            side: const BorderSide(color: mainColor),
           ),
           elevation: 2,
         ),

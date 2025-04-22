@@ -77,7 +77,7 @@ class _HotelsScreenState extends State<HotelsScreen> {
             images: hotel['images'] != null
     ? List<String>.from(hotel['images'].map((img) {
         String formattedPath = img.replaceAll('\\', '/');
-        return '$formattedPath';
+        return formattedPath;
       }))
     : [],
               rating: (hotel['averageRating'] as num?)?.toDouble() ?? 0.0,
@@ -220,7 +220,7 @@ class _HotelsScreenState extends State<HotelsScreen> {
               color: AppColors.red.withOpacity(0.1),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Icon(
+            child: const Icon(
               Icons.tune,
               color: AppColors.red,
               size: 20,
@@ -554,7 +554,7 @@ Widget _buildHotelsList() {
                             backgroundColor: AppColors.red.withOpacity(0.1),
                             child: Text(
                               '+${hotel.facilities.length - 3}',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 10,
                                 color: AppColors.red,
                                 fontWeight: FontWeight.bold,

@@ -84,11 +84,11 @@ class _MyAppState extends State<MyApp> {
       routes: {
         '/welcome': (context) => WelcomeScreen(),
         '/home': (context) => const HomePage(),
-        '/flight_tickets': (context) => FlightBookingScreen(),
+        '/flight_tickets': (context) => const FlightBookingScreen(),
         '/hospitals': (context) => const HospitalsScreen(),
         '/hotels': (context) => const HotelsScreen(),
         '/restaurants': (context) => const RestaurantsScreen(),
-        '/transportation': (context) => CarCompaniesScreen(),
+        '/transportation': (context) => const CarCompaniesScreen(),
         '/login': (context) => LoginScreen(),
       },
     );

@@ -173,7 +173,7 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
       Get.snackbar(
         'تنبيه',
         'الرجاء اختيار التاريخ والوقت',
-        icon: Icon(Icons.warning, color: Colors.orange),
+        icon: const Icon(Icons.warning, color: Colors.orange),
         snackPosition: SnackPosition.TOP,
         borderRadius: 10,
         margin: const EdgeInsets.all(10),
@@ -1032,7 +1032,7 @@ String formatDate(String dateStr) {
                       ),
                       child: Row(
                         children: [
-                          Icon(Icons.star, size: 16, color: Colors.amber),
+                          const Icon(Icons.star, size: 16, color: Colors.amber),
                           const SizedBox(width: 4),
                           Text(
                             '${review['rating']}',

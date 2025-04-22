@@ -6,12 +6,13 @@ class AboutUsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Directionality(
-      textDirection: TextDirection.rtl, // هذا السطر يجعل الشاشة RTL
+      textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.green,
+          elevation: 0,
           // title: const Text('من نحن'),
           // centerTitle: true,
-          backgroundColor: Colors.green,
         ),
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
@@ -19,7 +20,7 @@ class AboutUsScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 20),
-              Center(
+              const Center(
                 child: Icon(
                   Icons.medical_services,
                   size: 120,
@@ -38,49 +39,81 @@ class AboutUsScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               const Text(
-                'نحن وسيط بين الشخص المريض المسافر إلى مصر لغرض العلاج والمستشفيات والمراكز الطبية. نسعى لتسهيل رحلتكم العلاجية من البداية حتى النهاية.',
+                'نحن منصة متكاملة تربط المرضى المسافرين للعلاج حول العالم بأفضل المراكز الطبية. نقدم حلولاً شاملة لراحتكم من بداية الرحلة حتى العودة.',
                 style: TextStyle(fontSize: 16),
-              ),
-              const SizedBox(height: 20),
-              _buildFeatureSection(
-                icon: Icons.airplane_ticket,
-                title: 'حجز تذاكر السفر',
-                description: 'نسهل عملية السفر من خلال حجز تذاكر الطيران إلى مصر.',
-              ),
-              _buildFeatureSection(
-                icon: Icons.local_hospital,
-                title: 'حجز المستشفيات والمراكز الطبية',
-                description: 'نوفر قائمة بأفضل المستشفيات والمراكز الطبية مع إمكانية الحجز المباشر.',
-              ),
-              _buildFeatureSection(
-                icon: Icons.hotel,
-                title: 'حجز الفنادق',
-                description: 'نسهل عملية حجز الغرف أو الشقق في الفنادق مع تحديد مواقعها بالقرب من المراكز العلاجية.',
-              ),
-              _buildFeatureSection(
-                icon: Icons.directions_car,
-                title: 'وسائل النقل',
-                description: 'إمكانية حجز وسائل النقل داخل مصر من خلال التطبيق.',
-              ),
-              _buildFeatureSection(
-                icon: Icons.restaurant,
-                title: 'خدمات المطاعم',
-                description: 'توفير قائمة بالمطاعم مع تحديد مواقعها وإمكانية طلب الوجبات مع خدمة التوصيل.',
-              ),
-              _buildFeatureSection(
-                icon: Icons.rate_review,
-                title: 'تقييم الخدمات',
-                description: 'إمكانية تقييم المستشفيات والأطباء والمراكز الطبية والفنادق والمطاعم لمساعدة المستخدمين الآخرين.',
+                textAlign: TextAlign.center,
               ),
               const SizedBox(height: 30),
               const Text(
-                'نحن هنا لنجعل رحلتكم العلاجية أسهل وأكثر راحة.',
+                'خدماتنا تشمل:',
                 style: TextStyle(
-                  fontSize: 18,
-                  fontStyle: FontStyle.italic,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
                   color: Colors.green,
                 ),
-                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 15),
+              _buildFeatureSection(
+                icon: Icons.public,
+                title: 'العلاج حول العالم',
+                description: 'نسهل رحلتكم العلاجية لأي دولة تختارونها مثل تركيا، ألمانيا، الهند، تايلاند وغيرها',
+              ),
+              _buildFeatureSection(
+                icon: Icons.airplane_ticket,
+                title: 'حجز تذاكر السفر',
+                description: 'حجز تذاكر الطيران بأفضل الأسعار مع مراعاة احتياجات المرضى',
+              ),
+              _buildFeatureSection(
+                icon: Icons.medical_services,
+                title: 'حجز المستشفيات العالمية',
+                description: 'تواصل مباشر مع أفضل المستشفيات والمراكز الطبية في مختلف الدول',
+              ),
+              _buildFeatureSection(
+                icon: Icons.hotel,
+                title: 'إقامة مناسبة',
+                description: 'حجز فنادق أو شقق سكنية بالقرب من المراكز العلاجية مع مراعاة احتياجات المرضى',
+              ),
+              // _buildFeatureSection(
+              //   icon: Icons.translate,
+              //   title: 'خدمات الترجمة',
+              //   description: 'مترجمون طبيون متخصصون لمساعدتكم في التواصل مع الفرق الطبية',
+              // ),
+              _buildFeatureSection(
+                icon: Icons.directions_car,
+                title: 'وسائل النقل',
+                description: 'تنظيم المواصلات من المطار إلى مكان الإقامة والمراكز العلاجية',
+              ),
+              _buildFeatureSection(
+                icon: Icons.support_agent,
+                title: 'دعم متكامل',
+                description: 'فريق دعم على مدار الساعة لمساعدتكم في أي استفسارات أو طوارئ',
+              ),
+              const SizedBox(height: 30),
+              Container(
+                padding: const EdgeInsets.all(15),
+                decoration: BoxDecoration(
+                  color: Colors.green.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Text(
+                  'نهدف إلى جعل رحلتكم العلاجية في الخارج سهلة وآمنة ومريحة، حيث نتعامل مع جميع التفاصيل بدقة وعناية لنضمن لكم تجربة علاجية ناجحة.',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontStyle: FontStyle.italic,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              const SizedBox(height: 20),
+              const Center(
+                child: Text(
+                  'نسافر معكم خطوة بخطوة نحو الشفاء',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.green,
+                  ),
+                ),
               ),
             ],
           ),
@@ -99,8 +132,15 @@ class AboutUsScreen extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, size: 30, color: Colors.green),
-          const SizedBox(width: 10),
+          Container(
+            padding: const EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              color: Colors.green.withOpacity(0.2),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(icon, size: 25, color: Colors.green),
+          ),
+          const SizedBox(width: 15),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
