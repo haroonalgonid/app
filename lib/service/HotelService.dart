@@ -25,6 +25,7 @@ static Future<List<Map<String, dynamic>>?> getHotels() async {
           "phoneNumber": hotel["phoneNumber"],
           "website": hotel["website"],
           "email": hotel["email"],
+          "description" : hotel ["description"],
           "facilities": List<String>.from(hotel["facilities"] ?? []),
           "images": List<String>.from(hotel["images"] ?? []),
           "commercialRecord": hotel["commercialRecord"],

@@ -72,6 +72,7 @@ static Future<Map<String, dynamic>?> getHospitalDetails(
         "phoneNumber": hospital["phoneNumber"],
         "website": hospital["website"],
         "email": hospital["email"],
+        "description" : hospital["description"],
         "logo": hospital["logo"] != null ? '${hospital["logo"]}' : '',  // إصلاح رابط الشعار
       };
     } else {

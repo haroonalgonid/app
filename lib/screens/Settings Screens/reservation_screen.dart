@@ -685,9 +685,7 @@ String formatDateTime(String? dateString) {
       },
     );
   }
-
 Widget _buildBookingCard(Booking booking) {
-  // التحقق من وجود booking قبل محاولة الوصول إلى خصائصه
   return Card(
     elevation: 4,
     margin: const EdgeInsets.only(bottom: 16),
@@ -711,7 +709,7 @@ Widget _buildBookingCard(Booking booking) {
               const Icon(Icons.flight, color: Colors.orange, size: 24),
               const SizedBox(width: 8),
               Text(
-                'رحلة رقم: ${booking.flightNumber ?? '---'}',
+                'رحلة رقم: ${booking.flightNumber}',
                 style: GoogleFonts.cairo(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -742,7 +740,7 @@ Widget _buildBookingCard(Booking booking) {
                           ),
                         ),
                         Text(
-                          booking.departureAirport ?? 'غير متوفر',
+                          booking.departureAirport,
                           style: GoogleFonts.cairo(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
@@ -765,7 +763,7 @@ Widget _buildBookingCard(Booking booking) {
                           ),
                         ),
                         Text(
-                          booking.arrivalAirport ?? 'غير متوفر',
+                          booking.arrivalAirport,
                           style: GoogleFonts.cairo(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
@@ -780,59 +778,59 @@ Widget _buildBookingCard(Booking booking) {
               
               const Divider(height: 24),
               
-              // Flight Times - with null checks
+              // Flight Times
               _buildInfoRow(
                 'وقت الإقلاع',
-                booking.departureTime ?? '---',
+                booking.departureTime,
                 Icons.access_time,
               ),
               
               _buildInfoRow(
                 'وقت الوصول',
-                booking.arrivalTime ?? '---',
+                booking.arrivalTime,
                 Icons.access_time,
               ),
               
-              // Seat Information - with null checks
+              // Seat Information
               _buildInfoRow(
                 'رقم المقعد',
-                booking.seatNumber ?? '---',
+                booking.seatNumber,
                 Icons.event_seat,
               ),
               
               _buildInfoRow(
                 'فئة المقعد',
-                booking.flightClass ?? '---',
+                booking.flightClass,
                 Icons.airline_seat_recline_extra,
               ),
               
-              // Price - with null check
+              // Price
               _buildInfoRow(
                 'السعر',
-                '${booking.ticketPrice.toStringAsFixed(2) ?? '0.00'} دولار',
+                '${booking.ticketPrice.toStringAsFixed(2)} دولار',
                 Icons.attach_money,
               ),
               
-              // Passport Number - with null check
+              // Passport Number
               _buildInfoRow(
                 'رقم الجواز',
-                booking.passportNumber ?? '---',
+                booking.passportNumber,
                 Icons.credit_card,
               ),
               
               const SizedBox(height: 16),
               
-              // Status Badge - with null check
+              // Status Badge
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
-                  color: getStatusColor(booking.status ?? '').withOpacity(0.1),
+                  color: getStatusColor(booking.status).withOpacity(0.1),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(
-                  getStatusArabic(booking.status ?? ''),
+                  getStatusArabic(booking.status),
                   style: GoogleFonts.cairo(
-                    color: getStatusColor(booking.status ?? ''),
+                    color: getStatusColor(booking.status),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -845,7 +843,7 @@ Widget _buildBookingCard(Booking booking) {
   );
 }
 
-// تعديل الدالة لتتعامل مع القيم null
+// تعديل الدالة لتحسين عرض القيم الفارغة
 Widget _buildInfoRow(String label, String value, IconData icon) {
   final displayValue = (value == '---') ? 'غير متوفر' : value;
   
@@ -877,6 +875,7 @@ Widget _buildInfoRow(String label, String value, IconData icon) {
     ),
   );
 }
+
 
   Widget _buildAppointmentCard(Appointment appointment) {
     return Card(
