@@ -665,4 +665,4 @@ class _FlightDetailScreenState extends State<FlightDetailScreen> {
         return Colors.white;
     }
   }
-}
+} 
