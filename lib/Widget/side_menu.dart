@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 // import '../screens/Flights Screen/admin/dashboard_screen.dart';
 import '../screens/Settings Screens/PrivacyPolicyScreen.dart';
-import '../screens/Settings Screens/Welcome_Screen.dart';
 import '../screens/Settings Screens/aboutus_screen.dart';
 import '../screens/Settings Screens/become_admin_screen.dart';
 import '../screens/Settings Screens/changePassword_screen.dart';
@@ -92,31 +91,30 @@ class SideMenu extends StatelessWidget {
               );
             },
           ),
-              ListTile(
-  leading: const Icon(Icons.info_outline), // أيقونة معلومات
-  title: const Text('من نحن'), // النص المعروض
-  onTap: () {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const AboutUsScreen(),
-      ),
-    );
-  },
-),
-ListTile(
-  leading: const Icon(Icons.policy), // أيقونة سياسة
-  title: const Text('سياسة الاستخدام'),
-  onTap: () {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) =>  WelcomeScreen(),
-      ),
-    );
-  },
-),
-
+          ListTile(
+            leading: const Icon(Icons.info_outline), // أيقونة معلومات
+            title: const Text('من نحن'), // النص المعروض
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const AboutUsScreen(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.policy), // أيقونة سياسة
+            title: const Text('سياسة الاستخدام'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PrivacyPolicyScreen(),
+                ),
+              );
+            },
+          ),
         ],
       ),
     );
