@@ -5,7 +5,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// شاشاتك
 import 'screens/Flights Screen/FlightBookingScreen.dart';
 import 'screens/Hospitals Screens/hospitalHome_screen.dart';
 import 'screens/Hotels Screens/hotel_screen.dart';
