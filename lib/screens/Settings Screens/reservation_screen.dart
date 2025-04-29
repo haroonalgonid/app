@@ -876,7 +876,7 @@ Widget _buildInfoRow(String label, String value, IconData icon) {
   );
 }
 
-
+    
   Widget _buildAppointmentCard(Appointment appointment) {
     return Card(
       elevation: 4,
@@ -1348,4 +1348,5 @@ Widget _buildInfoRow(String label, String value, IconData icon) {
       ),
     );
   }
-}
+} 
+ 
