@@ -116,30 +116,30 @@ ListTile(
   },
 ),
 
-          ListTile(
-            leading: const Icon(Icons.info_outline), // أيقونة معلومات
-            title: const Text('من نحن'), // النص المعروض
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const AboutUsScreen(),
-                ),
-              );
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.policy), // أيقونة سياسة
-            title: const Text('سياسة الاستخدام'),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => PrivacyPolicyScreen(),
-                ),
-              );
-            },
-          ),
+          // ListTile(
+          //   leading: const Icon(Icons.info_outline), // أيقونة معلومات
+          //   title: const Text('من نحن'), // النص المعروض
+          //   onTap: () {
+          //     Navigator.push(
+          //       context,
+          //       MaterialPageRoute(
+          //         builder: (context) => const AboutUsScreen(),
+          //       ),
+          //     );
+          //   },
+          // ),
+          // ListTile(
+          //   leading: const Icon(Icons.policy), // أيقونة سياسة
+          //   title: const Text('سياسة الاستخدام'),
+          //   onTap: () {
+          //     Navigator.push(
+          //       context,
+          //       MaterialPageRoute(
+          //         builder: (context) => PrivacyPolicyScreen(),
+          //       ),
+          //     );
+          //   },
+          // ),
         ],
       ),
     );

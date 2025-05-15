@@ -6,14 +6,16 @@ class CarRentalService {
   static const String baseUrl = "https://backend-fpnx.onrender.com";
 
   // Get all car rentals with specific fields
- static Future<List<Map<String, dynamic>>?> getCarRentals() async {
+// Get all car rentals with specific fields
+static Future<List<Map<String, dynamic>>?> getCarRentals() async {
   try {
     final response = await http.get(Uri.parse('$baseUrl/carrental'));
     if (response.statusCode == 200) {
       Map<String, dynamic> responseData = jsonDecode(response.body);
       List<dynamic> companiesData = responseData["companies"] ?? [];
 
-      return companiesData.map<Map<String, dynamic>>((company) {
+      return companiesData.map<Map<String, dynamic>>((item) {
+        var company = item["company"] ?? {};
         return {
           "id": company["_id"],
           "name": company["name"],
@@ -32,7 +34,9 @@ class CarRentalService {
           "isApproved": company["isApproved"] ?? false,
           "createdAt": company["createdAt"],
           "updatedAt": company["updatedAt"],
-          "__v": company["__v"]
+          "__v": company["__v"],
+          "averageRating": (item["averageRating"] as num?)?.toDouble() ?? 0.0,
+          "totalReviews": item["totalReviews"] ?? 0,
         };
       }).toList();
     } else {

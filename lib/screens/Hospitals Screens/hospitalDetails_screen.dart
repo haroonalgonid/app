@@ -781,209 +781,215 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen>
     }
   }
 
-  void _showAddReviewDialog(BuildContext context) {
-    final formKey = GlobalKey<FormState>();
-    double rating = 0;
-    String comment = '';
+ void _showAddReviewDialog(BuildContext context) {
+  final formKey = GlobalKey<FormState>();
+  String comment = '';
 
-    showDialog(
-      context: context,
-      builder: (context) {
-        return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          child: Container(
-            padding: const EdgeInsets.all(24),
-            decoration: BoxDecoration(
-              color: Colors.white,
+  showDialog(
+    context: context,
+    builder: (context) {
+      double rating = 0; // ننقل المتغير هنا
+
+      return StatefulBuilder(
+        builder: (context, setState) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
             ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'شاركنا رأيك',
-                  style: GoogleFonts.tajawal(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.red[800],
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Center(
-                  child: RatingBar.builder(
-                    initialRating: 0,
-                    minRating: 1,
-                    direction: Axis.horizontal,
-                    allowHalfRating: true,
-                    itemCount: 5,
-                    itemSize: 36,
-                    itemPadding: const EdgeInsets.symmetric(horizontal: 4),
-                    itemBuilder: (context, _) => const Icon(
-                      Icons.star,
-                      color: Colors.amber,
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            child: Container(
+              padding: const EdgeInsets.all(24),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'شاركنا رأيك',
+                    style: GoogleFonts.tajawal(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red[800],
                     ),
-                    onRatingUpdate: (rating) {
-                      rating = rating;
-                    },
                   ),
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  'التعليق',
-                  style: GoogleFonts.tajawal(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Form(
-                  key: formKey,
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      hintText: 'اكتب تعليقك هنا...',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.grey[300]!),
+                  const SizedBox(height: 16),
+                  Center(
+                    child: RatingBar.builder(
+                      initialRating: 0,
+                      minRating: 1,
+                      direction: Axis.horizontal,
+                      allowHalfRating: true,
+                      itemCount: 5,
+                      itemSize: 36,
+                      itemPadding: const EdgeInsets.symmetric(horizontal: 4),
+                      itemBuilder: (context, _) => const Icon(
+                        Icons.star,
+                        color: Colors.amber,
                       ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.grey[300]!),
-                      ),
-                      filled: true,
-                      fillColor: Colors.grey[50],
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 14,
-                      ),
+                      onRatingUpdate: (newRating) {
+                        setState(() {
+                          rating = newRating; // تحديث القيمة عند التغيير
+                        });
+                      },
                     ),
-                    maxLines: 4,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'يرجى إدخال تعليقك';
-                      }
-                      return null;
-                    },
-                    onSaved: (value) {
-                      comment = value!;
-                    },
                   ),
-                ),
-                const SizedBox(height: 24),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: OutlinedButton(
-                        onPressed: () => Navigator.pop(context),
-                        style: OutlinedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 14),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          side: BorderSide(color: Colors.grey[300]!),
+                  const SizedBox(height: 16),
+                  Text(
+                    'التعليق',
+                    style: GoogleFonts.tajawal(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Form(
+                    key: formKey,
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        hintText: 'اكتب تعليقك هنا...',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(color: Colors.grey[300]!),
                         ),
-                        child: Text(
-                          'إلغاء',
-                          style: GoogleFonts.tajawal(
-                            color: Colors.grey[700],
-                            fontWeight: FontWeight.bold,
-                          ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(color: Colors.grey[300]!),
+                        ),
+                        filled: true,
+                        fillColor: Colors.grey[50],
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 14,
                         ),
                       ),
+                      maxLines: 4,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'يرجى إدخال تعليقك';
+                        }
+                        return null;
+                      },
+                      onSaved: (value) {
+                        comment = value!;
+                      },
                     ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          if (!await _checkInternetConnection()) {
-                            Get.snackbar(
-                              'خطأ في الاتصال',
-                              'لا يوجد اتصال بالإنترنت',
-                              icon: const Icon(Icons.wifi_off, color: Colors.red),
-                              snackPosition: SnackPosition.TOP,
-                              colorText: Colors.black,
-                              duration: const Duration(seconds: 3),
-                            );
-                            return;
-                          }
-
-                          if (rating == 0) {
-                            Get.snackbar(
-                              'نقص في البيانات',
-                              'الرجاء تحديد تقييم',
-                              icon:
-                                  const Icon(Icons.star_border, color: Colors.amber),
-                              snackPosition: SnackPosition.TOP,
-                              colorText: Colors.black,
-                              duration: const Duration(seconds: 3),
-                            );
-                            return;
-                          }
-
-                          if (formKey.currentState!.validate()) {
-                            formKey.currentState!.save();
-                            bool success =
-                                await HospitalService.addHospitalReview(
-                              hospitalId: widget.hospitalId,
-                              rating: rating.toInt(),
-                              comment: comment,
-                            );
-
-                            if (success) {
+                  ),
+                  const SizedBox(height: 24),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: OutlinedButton(
+                          onPressed: () => Navigator.pop(context),
+                          style: OutlinedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(vertical: 14),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            side: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          child: Text(
+                            'إلغاء',
+                            style: GoogleFonts.tajawal(
+                              color: Colors.grey[700],
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            if (!await _checkInternetConnection()) {
                               Get.snackbar(
-                                'نجاح',
-                                'تم إضافة التقييم بنجاح!',
-                                icon: const Icon(Icons.check_circle,
-                                    color: Colors.green),
+                                'خطأ في الاتصال',
+                                'لا يوجد اتصال بالإنترنت',
+                                icon: const Icon(Icons.wifi_off, color: Colors.red),
                                 snackPosition: SnackPosition.TOP,
                                 colorText: Colors.black,
                                 duration: const Duration(seconds: 3),
                               );
-                              Navigator.of(context).pop();
-                              await _fetchReviews();
-                            } else {
-                              Get.snackbar(
-                                'خطأ',
-                                'يرجى تسجيل الدخول أولاً',
-                                icon: const Icon(Icons.error, color: Colors.red),
-                                snackPosition: SnackPosition.TOP,
-                                colorText: Colors.black,
-                                duration: const Duration(seconds: 3),
-                              );
+                              return;
                             }
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.red[600],
-                          padding: const EdgeInsets.symmetric(vertical: 14),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
+
+                            if (rating == 0) {
+                              Get.snackbar(
+                                'نقص في البيانات',
+                                'الرجاء تحديد تقييم',
+                                icon: const Icon(Icons.star_border, color: Colors.amber),
+                                snackPosition: SnackPosition.TOP,
+                                colorText: Colors.black,
+                                duration: const Duration(seconds: 3),
+                              );
+                              return;
+                            }
+
+                            if (formKey.currentState!.validate()) {
+                              formKey.currentState!.save();
+                              bool success =
+                                  await HospitalService.addHospitalReview(
+                                hospitalId: widget.hospitalId,
+                                rating: rating.toInt(),
+                                comment: comment,
+                              );
+
+                              if (success) {
+                                Get.snackbar(
+                                  'نجاح',
+                                  'تم إضافة التقييم بنجاح!',
+                                  icon: const Icon(Icons.check_circle,
+                                      color: Colors.green),
+                                  snackPosition: SnackPosition.TOP,
+                                  colorText: Colors.black,
+                                  duration: const Duration(seconds: 3),
+                                );
+                                Navigator.of(context).pop();
+                                await _fetchReviews();
+                              } else {
+                                Get.snackbar(
+                                  'خطأ',
+                                  'يرجى تسجيل الدخول أولاً',
+                                  icon: const Icon(Icons.error, color: Colors.red),
+                                  snackPosition: SnackPosition.TOP,
+                                  colorText: Colors.black,
+                                  duration: const Duration(seconds: 3),
+                                );
+                              }
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red[600],
+                            padding: const EdgeInsets.symmetric(vertical: 14),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            elevation: 0,
                           ),
-                          elevation: 0,
-                        ),
-                        child: Text(
-                          'حفظ التقييم',
-                          style: GoogleFonts.tajawal(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
+                          child: Text(
+                            'حفظ التقييم',
+                            style: GoogleFonts.tajawal(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        );
-      },
-    );
-  }
+          );
+        },
+      );
+    },
+  );
+}
 
   IconData _getAmenityIcon(String amenity) {
     switch (amenity.toLowerCase()) {

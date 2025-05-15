@@ -85,7 +85,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
               _buildPolicySection(
                 title: "9. الاتصال بنا",
                 content:
-                    "لأية استفسارات حول السياسة أو الخدمات، يرجى التواصل معنا عبر:\nالبريد الإلكتروني: privacy@sicktraveler.com\nالهاتف: +966112345678\nساعات العمل: من الأحد إلى الخميس، 9 صباحاً - 5 مساءً",
+                    "لأية استفسارات حول السياسة أو الخدمات، يرجى التواصل معنا عبر:\nالبريد الإلكتروني: haroonalgonid @gmail.com\nالهاتف:773072639 \nساعات العمل: من الأحد إلى الخميس، 9 صباحاً - 5 مساءً",
               ),
               const SizedBox(height: 30),
               Container(
