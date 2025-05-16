@@ -116,22 +116,22 @@ class LoginScreen extends StatelessWidget {
           const SizedBox(height: 16),
           Align(
             alignment: Alignment.centerLeft,
-            child: TextButton(
-              onPressed: () {
-                // إضافة وظيفة استعادة كلمة المرور هنا
-              },
-              style: TextButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-              ),
-              child: const Text(
-                'نسيت كلمة المرور؟',
-                style: TextStyle(
-                  color: AppColors.primaryColor,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 15,
-                ),
-              ),
-            ),
+            // child: TextButton(
+            //   onPressed: () {
+            //     // إضافة وظيفة استعادة كلمة المرور هنا
+            //   },
+            //   style: TextButton.styleFrom(
+            //     padding: const EdgeInsets.symmetric(horizontal: 8),
+            //   ),
+            //   child: const Text(
+            //     'نسيت كلمة المرور؟',
+            //     style: TextStyle(
+            //       color: AppColors.primaryColor,
+            //       fontWeight: FontWeight.w600,
+            //       fontSize: 15,
+            //     ),
+            //   ),
+            // ),
           ),
           const SizedBox(height: 24),
           _buildButton(

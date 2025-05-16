@@ -798,11 +798,11 @@ Widget _buildBookingCard(Booking booking) {
                 Icons.event_seat,
               ),
               
-              _buildInfoRow(
-                'فئة المقعد',
-                booking.flightClass,
-                Icons.airline_seat_recline_extra,
-              ),
+              // _buildInfoRow(
+              //   'فئة المقعد',
+              //   booking.flightClass,
+              //   Icons.airline_seat_recline_extra,
+              // ),
               
               // Price
               _buildInfoRow(
